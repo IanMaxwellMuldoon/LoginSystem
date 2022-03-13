@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" fx:controller="com.example.loginsystem.RegisterPageController" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox prefHeight="56.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -133,7 +133,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="idRegisterButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Register" BorderPane.alignment="CENTER">
+      <Button fx:id="idRegisterButton" onAction="#handleRegister" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Register" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin>

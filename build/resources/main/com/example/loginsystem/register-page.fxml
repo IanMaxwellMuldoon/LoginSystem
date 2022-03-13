@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" fx:controller="com.example.loginsystem.RegisterPageController" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox prefHeight="56.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="67.0" prefWidth="600.0" text="Log in">
+            <Label alignment="CENTER" prefHeight="67.0" prefWidth="600.0" text="Registration">
                <font>
                   <Font size="41.0" />
                </font>
@@ -35,7 +34,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="idUsername" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
+                  <TextField fx:id="idRegUsername" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
@@ -52,7 +51,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="idPassword" alignment="BOTTOM_LEFT" prefHeight="11.0" prefWidth="319.0">
+                  <TextField fx:id="idRegPassword" alignment="BOTTOM_LEFT" prefHeight="11.0" prefWidth="319.0">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
@@ -134,10 +133,13 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="idInitDatabase" mnemonicParsing="false" prefHeight="43.0" prefWidth="207.0" text="Initialize Database" BorderPane.alignment="CENTER">
+      <Button fx:id="idRegisterButton" onAction="#handleRegister" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Register" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin>
+         <font>
+            <Font size="22.0" />
+         </font>
       </Button>
    </bottom>
 </BorderPane>
