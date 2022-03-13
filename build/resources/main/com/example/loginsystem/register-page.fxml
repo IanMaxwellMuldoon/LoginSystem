@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" fx:controller="com.example.loginsystem.RegisterPageController" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginsystem.RegisterPageController">
    <top>
       <VBox prefHeight="56.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -133,13 +133,22 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="idRegisterButton" onAction="#handleRegister" mnemonicParsing="false" prefHeight="43.0" prefWidth="155.0" text="Register" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="20.0" />
-         </BorderPane.margin>
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Button>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="idGoBackButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="128.0" text="Go Back" onAction="#handleGoBack">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="idRegisterButton" mnemonicParsing="false" onAction="#handleRegister" prefHeight="43.0" prefWidth="155.0" text="Register">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>
