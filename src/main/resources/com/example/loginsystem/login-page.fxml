@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="97.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="130.0" prefWidth="679.0" text="Login">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="64.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="64.0" prefWidth="74.0" text="Username:">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="idRegUsername" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="600.0">
+               <children>
+                  <Label prefHeight="64.0" prefWidth="74.0" text="Password:">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="idRegUsername1" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="202.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="idLoginButton" alignment="CENTER" mnemonicParsing="false" text="Login">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="idLogRegisterButton" alignment="CENTER" layoutX="293.0" layoutY="77.0" mnemonicParsing="false" text="Register" wrapText="true">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="idInitDatabase" alignment="CENTER" layoutX="293.0" layoutY="120.0" mnemonicParsing="false" text="Initialize Database">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
