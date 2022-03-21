@@ -32,7 +32,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="idRegUsername" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0" >
+                  <TextField fx:id="UsernameTextField" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0" >
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
@@ -49,7 +49,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="idRegUsername1" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
+                  <TextField fx:id="PassTextField" alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="319.0">
                      <HBox.margin>
                         <Insets top="20.0" />
                      </HBox.margin>
@@ -65,7 +65,7 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="202.0" prefWidth="650.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="idLoginButton" alignment="CENTER" mnemonicParsing="false" text="Login" onAction="#handleLogin">
+            <Button fx:id="LoginButton" alignment="CENTER" mnemonicParsing="false" text="Login" onAction="#handleLogin">
                <font>
                   <Font size="22.0" />
                </font>
@@ -73,7 +73,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="idLogRegisterButton" alignment="CENTER" layoutX="293.0" layoutY="77.0" mnemonicParsing="false" text="Register" wrapText="true" onAction="#handleLogRegister">
+            <Button fx:id="RegisterButton" alignment="CENTER" layoutX="293.0" layoutY="77.0" mnemonicParsing="false" text="Register" wrapText="true" onAction="#handleLogRegister">
                <font>
                   <Font size="22.0" />
                </font>
@@ -81,7 +81,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="idInitDatabase" alignment="CENTER" layoutX="293.0" layoutY="120.0" mnemonicParsing="false" text="Initialize Database" onAction = "#handleInitDatabase">
+            <Button fx:id="InitDatabase" alignment="CENTER" layoutX="293.0" layoutY="120.0" mnemonicParsing="false" text="Initialize Database" onAction = "#handleInitDatabase">
                <font>
                   <Font size="22.0" />
                </font>
