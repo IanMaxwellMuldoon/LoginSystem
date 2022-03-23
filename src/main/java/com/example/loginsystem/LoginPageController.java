@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 
@@ -25,7 +28,19 @@ public class LoginPageController {
     ResultSet loginResult;
 
     public void handleInitDatabase(ActionEvent actionEvent) {
+
         System.out.println("Initialize Database!!");
+        DatabaseConnection connect = new DatabaseConnection();
+
+        ScriptRunner runner = new ScriptRunner(connect.getConnection(), false, false);
+        String file = "C:\\Users\\ianmu\\OneDrive\\Documents\\GitHub\\LoginSystem\\university.sql";
+        try {
+            runner.runScript(new BufferedReader(new FileReader(file)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleLogRegister(ActionEvent actionEvent) throws IOException {
