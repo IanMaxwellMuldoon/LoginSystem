@@ -59,8 +59,6 @@ public class LoginPageController {
         DatabaseConnection connectU = new DatabaseConnection();
         Connection connectUser = connectU.getConnection();
 
-        DatabaseConnection connectP = new DatabaseConnection();
-        Connection connectPass = connectP.getConnection();
 
         //Username query
         String loginQuery = "SELECT username, password FROM users where username= ?";
