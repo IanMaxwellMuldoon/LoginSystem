@@ -22,6 +22,10 @@ public class LoginPageController {
     TextField UsernameTextField;
     @FXML
     TextField PassTextField;
+
+    @FXML
+    Label logStatus;
+
     String passwordEntry;
     String usernameEntry;
     PreparedStatement prepareStatement;
@@ -76,13 +80,13 @@ public class LoginPageController {
 
             //get results
             if(!loginResult.isBeforeFirst()){
-                System.out.println("Try Again");
+                logStatus.setText("Try Again");
             }else {
                 while (loginResult.next()) {
                     if (usernameEntry.equals(loginResult.getString("username")) && passwordEntry.equals(loginResult.getString("password"))) {
-                        System.out.println("Login successful!");
+                        logStatus.setText("Login successful!");
                     } else {
-                        System.out.println("Try Again");
+                        logStatus.setText("Try Again");
                     }
                 }
             }

@@ -20,6 +20,7 @@ public class RegisterPageController {
     public TextField FirstName;
     public TextField LastName;
     public TextField Email;
+    public Label statusText;
 
     private String strRegUsername;
     private String strRegPassword;
@@ -57,11 +58,11 @@ public class RegisterPageController {
 
         //error detection
         if (!strRegPassword.equals(strRePassword)) {
-            System.out.println("Passwords are not the same!!");
+            statusText.setText("Passwords are not the same!!");
             clearFields();
         }
         else {
-            String dupQuery = "SELECT count(1) FROM users WHERE username = ?;";
+            String dupQuery = "SELECT count(1) FROM users WHERE username = ? OR email = ?;";
             String regQuery = "INSERT INTO users (username,password,firstname,lastname,email) VALUES (?, ?, ?, ?, ?);";
 
             try {
@@ -69,12 +70,13 @@ public class RegisterPageController {
                 preparedStatement = connectUser.prepareStatement(dupQuery);
 
                 preparedStatement.setString(1, strRegUsername);
+                preparedStatement.setString(2, strEmail);
 
                 resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
-                    if (resultSet.getInt("count(1)") == 1) {
-                        System.out.println("This account already exists!");
+                    if (resultSet.getInt("count(1)") > 1) {
+                        statusText.setText("This account already exists!");
                         clearFields();
                     } else {
 
@@ -89,21 +91,16 @@ public class RegisterPageController {
 
 
                         int i = preparedStatement.executeUpdate();
-
-                        if (!resultSet.isBeforeFirst()) {
-                            System.out.println("Try Again");
-                        } else if (i < 0) {
-                            System.out.println("Success!");
+                        if (i > 0) {
+                            statusText.setText("Success!");
                         } else {
-                            System.out.println("Failure");
+                            statusText.setText("Failure");
                         }
                     }
                 }
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
-
-
             }
         }
         }
@@ -116,5 +113,7 @@ public class RegisterPageController {
     public void clearFields(){
         RegPassword.clear();
         RePassword.clear();
+
     }
+
 }
