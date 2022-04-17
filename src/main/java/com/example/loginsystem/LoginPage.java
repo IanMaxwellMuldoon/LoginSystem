@@ -14,9 +14,11 @@ import java.io.IOException;
 public class LoginPage extends Application{
 
     public static Stage window;
-    Button LoginButton;
-    Button RegisterButton;
-    Button InitializeDatabaseButton;
+
+
+
+    public static int userID;
+    public static String userName;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,6 +33,20 @@ public class LoginPage extends Application{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         Scene scene = new Scene( pane );
         window.setScene(scene);
+    }
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 

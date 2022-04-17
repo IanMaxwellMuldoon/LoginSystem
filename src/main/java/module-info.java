@@ -6,4 +6,6 @@ module com.example.loginsystem {
 
     opens com.example.loginsystem to javafx.fxml;
     exports com.example.loginsystem;
+    exports com.example.loginsystem.Database;
+    opens com.example.loginsystem.Database to javafx.fxml;
 }
