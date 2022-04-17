@@ -1,4 +1,4 @@
-package com.example.loginsystem;
+package com.example.loginsystem.Database;
 
 import java.io.*;
 import java.sql.*;

@@ -1,5 +1,7 @@
 package com.example.loginsystem;
 
+import com.example.loginsystem.Database.DatabaseConnection;
+import com.example.loginsystem.Database.ScriptRunner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -31,13 +32,15 @@ public class LoginPageController {
     PreparedStatement prepareStatement;
     ResultSet loginResult;
 
+
+
     public void handleInitDatabase(ActionEvent actionEvent) {
 
         System.out.println("Initialize Database!!");
         DatabaseConnection connect = new DatabaseConnection();
 
         ScriptRunner runner = new ScriptRunner(connect.getConnection(), false, false);
-        String file = "C:\\Users\\ianmu\\OneDrive\\Documents\\GitHub\\LoginSystem\\university.sql";
+        String file = "C:\\Users\\ianmu\\OneDrive\\Documents\\GitHub\\LoginSystem\\CreateTables.sql";
         try {
             runner.runScript(new BufferedReader(new FileReader(file)));
         } catch (IOException e) {
@@ -65,7 +68,7 @@ public class LoginPageController {
 
 
         //Username query
-        String loginQuery = "SELECT username, password FROM users where username= ?";
+        String loginQuery = "SELECT username, password, id FROM users where username= ?";
 
 
         try {
@@ -85,6 +88,10 @@ public class LoginPageController {
                 while (loginResult.next()) {
                     if (usernameEntry.equals(loginResult.getString("username")) && passwordEntry.equals(loginResult.getString("password"))) {
                         logStatus.setText("Login successful!");
+                        int id = loginResult.getInt("id");
+                        login.setUserID(id);
+                        login.setUserName(loginResult.getString("username"));
+                        login.changeScene("blog-page.fxml");
                     } else {
                         logStatus.setText("Try Again");
                     }
@@ -93,6 +100,9 @@ public class LoginPageController {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
 }
