@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginsystem.BlogPageController">
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="178.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Create Blog">
                <font>
@@ -33,7 +33,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="BlogSubjectTextField" prefHeight="31.0" prefWidth="481.0" />
+                  <TextField fx:id="BlogSubjectTextField" prefHeight="27.0" prefWidth="529.0" />
                </children>
             </HBox>
             <Label prefHeight="24.0" prefWidth="97.0" text="Description">
@@ -44,14 +44,34 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea fx:id="BlogDescriptionTextArea" prefHeight="70.0" prefWidth="580.0">
+            <TextArea fx:id="BlogDescriptionTextArea" prefHeight="47.0" prefWidth="580.0">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="5.0" />
                </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
             </TextArea>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="47.0" text="Tags: ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="BlogTagTextField" onAction="#handleBlogTagTextField" prefHeight="25.0" prefWidth="532.0" promptText="Use comma to separate values">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
             <Button fx:id="BlogDoneButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleBlogDoneButton" text="Done">
                <VBox.margin>
-                  <Insets left="280.0" top="5.0" />
+                  <Insets bottom="5.0" left="280.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>
@@ -60,11 +80,11 @@
    <bottom>
       <Button fx:id="BlogGoBackButton" mnemonicParsing="false" onAction="#handleBlogGoBackButton" text="Go Back" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0" top="5.0" />
          </BorderPane.margin>
       </Button>
    </bottom>
    <center>
-      <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

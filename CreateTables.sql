@@ -47,7 +47,7 @@ CREATE TABLE `Comments`(
 `id` int(15) NOT NULL AUTO_INCREMENT,
 `usersID` int(15) NOT NULL,
 `Description` varchar(30) NOT NULL,
-`Sentiment` boolean NOT NULL,
+`Sentiment` boolean,
 `blogID` int(15) NOT NULL,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`usersID`)
