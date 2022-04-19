@@ -13,3 +13,118 @@
 27/27/2022 19:27:18
 -------
 
+
+-------
+18/02/2022 16:02:12
+-------
+
+Error executing 'DROP TABLE IF EXISTS `users` ' (line 3): Cannot drop table 'users' referenced by a foreign key constraint 'hobbies_ibfk_1' on table 'hobbies'.
+Error executing 'CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) ' (line 19): Table 'users' already exists
+
+-------
+18/02/2022 16:02:54
+-------
+
+Error executing 'DROP TABLE IF EXISTS `users` ' (line 4): Cannot drop table 'users' referenced by a foreign key constraint 'follow_ibfk_1' on table 'follow'.
+Error executing 'CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) ' (line 19): Table 'users' already exists
+
+-------
+18/03/2022 16:03:24
+-------
+
+Error executing 'DROP TABLE IF EXISTS `users` ' (line 5): Cannot drop table 'users' referenced by a foreign key constraint 'blog_ibfk_1' on table 'blog'.
+Error executing 'CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) ' (line 19): Table 'users' already exists
+
+-------
+18/03/2022 16:03:43
+-------
+
+Error executing 'DROP TABLE IF EXISTS `Blog` ' (line 5): Cannot drop table 'blog' referenced by a foreign key constraint 'comments_ibfk_2' on table 'comments'.
+Error executing 'DROP TABLE IF EXISTS `users` ' (line 6): Cannot drop table 'users' referenced by a foreign key constraint 'blog_ibfk_1' on table 'blog'.
+Error executing 'CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) ' (line 20): Table 'users' already exists
+Error executing 'CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) ' (line 56): Table 'blog' already exists
+
+-------
+18/04/2022 16:04:03
+-------
+
+Error executing 'DROP TABLE IF EXISTS `Blog` ' (line 3): Cannot drop table 'blog' referenced by a foreign key constraint 'comments_ibfk_2' on table 'comments'.
+Error executing 'DROP TABLE IF EXISTS `users` ' (line 6): Cannot drop table 'users' referenced by a foreign key constraint 'blog_ibfk_1' on table 'blog'.
+Error executing 'CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) ' (line 20): Table 'users' already exists
+Error executing 'CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) ' (line 56): Table 'blog' already exists
+
+-------
+18/06/2022 16:06:13
+-------
+
+
+-------
+19/25/2022 10:25:18
+-------
+
+
+-------
+19/59/2022 11:59:23
+-------
+
+
+-------
+19/40/2022 12:40:48
+-------
+

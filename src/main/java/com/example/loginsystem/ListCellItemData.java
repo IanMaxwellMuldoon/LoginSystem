@@ -1,5 +1,6 @@
 package com.example.loginsystem;
 
+import com.example.loginsystem.Database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,9 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 
-import javax.security.auth.callback.Callback;
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ListCellItemData {
@@ -64,8 +69,33 @@ public class ListCellItemData {
 
 
     public void handleListCellSendButton(ActionEvent actionEvent) {
-        enteredComment = listCellCommentTextArea.getText();
-        comments.add(enteredComment);
+       /* enteredComment = listCellCommentTextArea.getText();
+        comments.add(LoginPage.userName + "/" + enteredComment);
+        setCommentListView();
+        create connection
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectUser = connection.getConnection();
+        PreparedStatement preparedStatement;
+
+        //Blog Post query
+        String commentPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
+
+        //Prepared Statement
+        try{
+            preparedStatement = connectUser.prepareStatement(commentPostQuery);
+            preparedStatement.setString(1, BlogSubjectTextField.getText());
+            preparedStatement.setString(2, BlogDescriptionTextArea.getText());
+            String id = String.valueOf(loginPage.getUserID());
+            preparedStatement.setString(3, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        setAddedlistView();
+
+    }*/
     }
 
     public void handleListCellLikeButton(ActionEvent actionEvent) {
@@ -79,17 +109,19 @@ public class ListCellItemData {
     public BorderPane getListCellBorderPane() {
         return listCellBorderPane;
     }
-   /* public void setCommentListView(){
+
+    public void setCommentListView(){
         observableList.setAll(comments);
         listCellCommentListView.setItems(observableList);
-        listCellCommentListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>()
-        {
+        listCellCommentListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> listView)
             {
-                return new ListViewCell();
+                return new ListCommentCell();
             }
         });
 
-    }*/
+    }
+
+
 }

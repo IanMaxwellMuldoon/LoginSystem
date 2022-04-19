@@ -175,3 +175,1361 @@ CREATE TABLE `instructor` (
 -- Dumping data for table `instructor`
 --
 INSERT INTO `instructor` VALUES ('14365','Lembr','Accounting',32241.56),('15347','Bawa','Athletics',72140.88),('19368','Wieland','Pol. Sci.',124651.41),('22591','DAgostino','Psychology',59706.49),('25946','Liley','Languages',90891.69),('28097','Kean','English',35023.18),('28400','Atanassov','Statistics',84982.92),('3199','Gustafsson','Elec. Eng.',82534.37),('3335','Bourrier','Comp. Sci.',80797.83),('34175','Bondi','Comp. Sci.',115469.11),('36897','Morris','Marketing',43770.36),('41930','Tung','Athletics',50482.03),('4233','Luo','English',88791.45),('42782','Vicentino','Elec. Eng.',34272.67),('43779','Romero','Astronomy',79070.08),('48507','Lent','Mech. Eng.',107978.47),('48570','Sarkar','Pol. Sci.',87549.80),('50330','Shuming','Physics',108011.81),('63287','Jaekel','Athletics',103146.87),('6569','Mingoz','Finance',105311.38),('65931','Pimenta','Cybernetics',79866.95),('73623','Sullivan','Elec. Eng.',90038.09),('74420','Voronina','Physics',121141.99),('77346','Mahmoud','Geology',99382.59),('79081','Ullman ','Accounting',47307.10),('80759','Queiroz','Biology',45538.32),('81991','Valtchev','Biology',77036.18),('90376','Bietzk','Cybernetics',117836.50),('90643','Choll','Statistics',57807.09),('95709','Sakurai','English',118143.98),('99052','Dale','Cybernetics',93348.83) 
+
+-------
+18/02/2022 16:02:12
+-------
+
+use `userdatabase` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `Comments` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Blog` 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+18/02/2022 16:02:54
+-------
+
+use `userdatabase` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Blog` 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+18/03/2022 16:03:24
+-------
+
+use `userdatabase` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+DROP TABLE IF EXISTS `Blog` 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+18/03/2022 16:03:43
+-------
+
+use `userdatabase` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+18/04/2022 16:04:03
+-------
+
+use `userdatabase` 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+18/06/2022 16:06:13
+-------
+
+use `userdatabase` 
+SET FOREIGN_KEY_CHECKS = 0 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+SET FOREIGN_KEY_CHECKS = 1 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+19/25/2022 10:25:18
+-------
+
+use `userdatabase` 
+SET FOREIGN_KEY_CHECKS = 0 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+SET FOREIGN_KEY_CHECKS = 1 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+19/59/2022 11:59:23
+-------
+
+use `userdatabase` 
+SET FOREIGN_KEY_CHECKS = 0 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+SET FOREIGN_KEY_CHECKS = 1 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 
+
+-------
+19/40/2022 12:40:48
+-------
+
+use `userdatabase` 
+SET FOREIGN_KEY_CHECKS = 0 
+DROP TABLE IF EXISTS `Blog` 
+DROP TABLE IF EXISTS `Follow` 
+DROP TABLE IF EXISTS `Hobbies` 
+DROP TABLE IF EXISTS `users` 
+DROP TABLE IF EXISTS `Tags` 
+DROP TABLE IF EXISTS `Comments` 
+SET FOREIGN_KEY_CHECKS = 1 
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+) 
+CREATE TABLE `Hobbies`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`hiking` boolean ,
+`swimming` boolean,
+`calligraphy` boolean,
+`bowling` boolean,
+`movie` boolean,
+`cooking` boolean,
+`dancing` boolean,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Follow`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`FollowedUserid` int(15) NOT NULL,
+`FollowingUserid` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY(`FollowedUserid`)
+REFERENCES users(id),
+FOREIGN KEY(`FollowingUserid`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Blog`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`Subject` varchar(30) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`usersID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id)
+) 
+CREATE TABLE `Comments`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`usersID` int(15) NOT NULL,
+`Description` varchar(30) NOT NULL,
+`Sentiment` boolean,
+`blogID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`usersID`)
+REFERENCES users(id),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+CREATE TABLE `Tags`(
+`id` int(15) NOT NULL AUTO_INCREMENT,
+`blogID` int(15) NOT NULL,
+`Title` varchar(30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`blogID`)
+REFERENCES blog(id)
+) 
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com') 
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com') 
+-- Insert data into hobbies
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(1,true,true,true,false,false,false,true) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(3,false,false,false,true,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(2,true,false,true,false,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(5,false,true,true,true,true,false,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(4,true,true,false,false,true,true,false) 
+INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
+VALUES(6,false,false,true,false,true,false,true) 
+-- Insert data into Follow
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,2) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(1,3) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,4) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(4,5) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(2,1) 
+INSERT INTO Follow(FollowedUserid, FollowingUserid)
+VALUES(5,3) 
+-- Insert data into Blog
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Animals','I like animals',1) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Frogs','I like frogs',2) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Bikes','I like bikes',3) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Games','I like games',4) 
+INSERT INTO Blog(Subject, Description, usersID)
+VALUES('Exercise','I like exercise',5) 
+-- Insert data into Comments
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(1,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(2,'wow i disliked it',false,4) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(4,'thats very true',true,5) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(3,'wow i liked it',true,2) 
+INSERT INTO Comments(usersID,Description,Sentiment,Blogid)
+Values(5,'wow i hated it',false,3) 
+-- Insert Data into Tags
+INSERT INTO Tags(blogID,Title)
+Values(1,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Animals') 
+INSERT INTO Tags(blogID,Title)
+Values(2,'Frogs') 
+INSERT INTO Tags(blogID,Title)
+Values(3,'Exercise') 
+INSERT INTO Tags(blogID,Title)
+Values(4,'VideoGames') 
+INSERT INTO Tags(blogID,Title)
+Values(5,'Workout') 

@@ -1,11 +1,26 @@
 use `userdatabase`; 
 
-DROP TABLE IF EXISTS `Tags`;
-DROP TABLE IF EXISTS `Hobbies`;
-DROP TABLE IF EXISTS `Comments`;
-DROP TABLE IF EXISTS `Follow`;
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `Blog`;
+DROP TABLE IF EXISTS `Follow`;
+DROP TABLE IF EXISTS `Hobbies`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `Tags`;
+DROP TABLE IF EXISTS `Comments`;
+SET FOREIGN_KEY_CHECKS = 1;
 
+
+
+CREATE TABLE users (
+id int (15) NOT NULL AUTO_INCREMENT,
+username VARCHAR (30) NOT NULL,
+password VARCHAR (30) NOT NULL,
+firstname VARCHAR (30) NOT NULL,
+lastname VARCHAR (30) NOT NULL,
+email VARCHAR (30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+);
 
 CREATE TABLE `Hobbies`(
 `id` int(15) NOT NULL AUTO_INCREMENT,
@@ -17,6 +32,7 @@ CREATE TABLE `Hobbies`(
 `movie` boolean,
 `cooking` boolean,
 `dancing` boolean,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`usersID`)
 REFERENCES users(id)
@@ -26,6 +42,7 @@ CREATE TABLE `Follow`(
 `id` int(15) NOT NULL AUTO_INCREMENT,
 `FollowedUserid` int(15) NOT NULL,
 `FollowingUserid` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`),
 FOREIGN KEY(`FollowedUserid`)
 REFERENCES users(id),
@@ -38,6 +55,7 @@ CREATE TABLE `Blog`(
 `Subject` varchar(30) NOT NULL,
 `Description` varchar(30) NOT NULL,
 `usersID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY(`id`),
 FOREIGN KEY (`usersID`)
 REFERENCES users(id)
@@ -49,6 +67,7 @@ CREATE TABLE `Comments`(
 `Description` varchar(30) NOT NULL,
 `Sentiment` boolean,
 `blogID` int(15) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`usersID`)
 REFERENCES users(id),
@@ -60,10 +79,25 @@ CREATE TABLE `Tags`(
 `id` int(15) NOT NULL AUTO_INCREMENT,
 `blogID` int(15) NOT NULL,
 `Title` varchar(30) NOT NULL,
+createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`blogID`)
 REFERENCES blog(id)
 );
+
+--InsertData
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('IanMuld','pass','Ian','Muldoon','ian.muldoon@gmail.com');
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('ColinShep','password','Colin','Shepard','colin.shepard@gmail.com');
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('NikkoO','pass123','Nikko','Orillo','n.Orillo@gmail.com');
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JacobSilly','password','Jacob','Sickagoose','J.sick@gmail.com');
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('Kenz','pass','Makenzie','McCormick','mccormick@gmail.com');
+INSERT INTO users(username,password,firstname,lastname,email)
+VALUES('JDoe','password123','John','Doe','JDoe@gmail.com');
 
 -- Insert data into hobbies
 INSERT INTO Hobbies(usersID,hiking,swimming,calligraphy,bowling,movie,cooking,dancing)
@@ -130,6 +164,8 @@ INSERT INTO Tags(blogID,Title)
 Values(4,'VideoGames');
 INSERT INTO Tags(blogID,Title)
 Values(5,'Workout');
+
+
 
 
 
