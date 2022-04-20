@@ -69,21 +69,21 @@ public class ListCellItemData {
 
 
     public void handleListCellSendButton(ActionEvent actionEvent) {
-       /* enteredComment = listCellCommentTextArea.getText();
-        comments.add(LoginPage.userName + "/" + enteredComment);
-        setCommentListView();
-        create connection
+        //enteredComment = listCellCommentTextArea.getText();
+        //comments.add(LoginPage.userName + "/" + enteredComment);
+        //setCommentListView();
+        //create connection
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
 
-        //Blog Post query
-        String commentPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
+        //Comment Post query
+        String commentPostQuery = "INSERT INTO comments(usersID, Description, Sentiment, blogID) VALUES(?,?,?,?);";
 
         //Prepared Statement
         try{
             preparedStatement = connectUser.prepareStatement(commentPostQuery);
-            preparedStatement.setString(1, BlogSubjectTextField.getText());
+            preparedStatement.setString(1, Loginpage);
             preparedStatement.setString(2, BlogDescriptionTextArea.getText());
             String id = String.valueOf(loginPage.getUserID());
             preparedStatement.setString(3, id);
@@ -95,7 +95,7 @@ public class ListCellItemData {
         }
         setAddedlistView();
 
-    }*/
+    }
     }
 
     public void handleListCellLikeButton(ActionEvent actionEvent) {

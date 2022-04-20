@@ -53,7 +53,7 @@ REFERENCES users(id)
 CREATE TABLE `Blog`(
 `id` int(15) NOT NULL AUTO_INCREMENT,
 `Subject` varchar(30) NOT NULL,
-`Description` varchar(30) NOT NULL,
+`Description` varchar(1000) NOT NULL,
 `usersID` int(15) NOT NULL,
 createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY(`id`),

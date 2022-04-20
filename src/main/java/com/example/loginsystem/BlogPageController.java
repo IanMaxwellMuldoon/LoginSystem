@@ -49,19 +49,27 @@ public class BlogPageController implements Initializable {
         String blogPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
 
         //Prepared Statement
-        try{
+        try {
             preparedStatement = connectUser.prepareStatement(blogPostQuery);
             preparedStatement.setString(1, BlogSubjectTextField.getText());
             preparedStatement.setString(2, BlogDescriptionTextArea.getText());
             String id = String.valueOf(loginPage.getUserID());
             preparedStatement.setString(3, id);
 
-            preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+            if (!(BlogDescriptionTextArea.getText().chars().count() < 1000))
+                System.out.println("Error: Maximum of 1000 characters");
+
+               else {
+                preparedStatement.executeUpdate();
+                setAddedlistView();
+            }
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        setAddedlistView();
+
 
     }
 
