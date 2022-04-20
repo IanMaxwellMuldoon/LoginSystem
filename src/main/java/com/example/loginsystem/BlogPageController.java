@@ -67,6 +67,7 @@ public class BlogPageController implements Initializable {
             if (!(BlogDescriptionTextArea.getText().chars().count() < 1000))
                 System.out.println("Error: Maximum of 1000 characters");
 
+
                else {
                 preparedStatement.executeUpdate();
                 setAddedlistView();
@@ -74,6 +75,7 @@ public class BlogPageController implements Initializable {
 
 
             tagpreparedStatement = connectUser.prepareStatement(tagPostQuery);
+            System.out.println("Test");
             for(String s: splitTags(BlogTagTextField)) {
                 tagpreparedStatement.setString(1, String.valueOf(queryBlogId()));
                 tagpreparedStatement.setString( 2,s);
