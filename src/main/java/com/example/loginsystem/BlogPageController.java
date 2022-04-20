@@ -38,36 +38,39 @@ public class BlogPageController implements Initializable {
 
 
     public void handleBlogDoneButton(ActionEvent actionEvent) {
-        System.out.println("Done Button");
 
-        //create connection
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
-        PreparedStatement preparedStatement;
+        if(check2Blogs() == false) {
+            //create connection
+            DatabaseConnection connection = new DatabaseConnection();
+            Connection connectUser = connection.getConnection();
+            PreparedStatement preparedStatement;
 
-        //Blog Post query
-        String blogPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
+            //Blog Post query
+            String blogPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
 
-        //Prepared Statement
-        try {
-            preparedStatement = connectUser.prepareStatement(blogPostQuery);
-            preparedStatement.setString(1, BlogSubjectTextField.getText());
-            preparedStatement.setString(2, BlogDescriptionTextArea.getText());
-            String id = String.valueOf(loginPage.getUserID());
-            preparedStatement.setString(3, id);
+            //Prepared Statement
+            try {
+                preparedStatement = connectUser.prepareStatement(blogPostQuery);
+                preparedStatement.setString(1, BlogSubjectTextField.getText());
+                preparedStatement.setString(2, BlogDescriptionTextArea.getText());
+                String id = String.valueOf(loginPage.getUserID());
+                preparedStatement.setString(3, id);
 
 
-            if (!(BlogDescriptionTextArea.getText().chars().count() < 1000))
-                System.out.println("Error: Maximum of 1000 characters");
+                if (!(BlogDescriptionTextArea.getText().chars().count() < 1000))
+                    System.out.println("Error: Maximum of 1000 characters");
 
-               else {
-                preparedStatement.executeUpdate();
-                setAddedlistView();
+                else {
+                    preparedStatement.executeUpdate();
+                    setAddedlistView();
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else{
+            System.out.println("You have already posted 2 blogs today!!!");
         }
 
 
@@ -94,13 +97,13 @@ public class BlogPageController implements Initializable {
         ResultSet resultSet;
 
         //Get blogs query and username
-        String getBlogQuery = "SELECT blog.Subject, blog.Description, blog.usersID, users.username FROM blog, users WHERE blog.usersID = users.id;";
+        String getBlogQuery = "SELECT blog.Subject, blog.Description, blog.usersID, users.username, blog.id FROM blog, users WHERE blog.usersID = users.id;";
 
         try{
             preparedStatement = connectUser.prepareStatement(getBlogQuery);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Blog blog = new Blog(resultSet.getString("Subject"),resultSet.getString("Description"), Integer.parseInt(resultSet.getString("usersID")), resultSet.getString("username"));
+                Blog blog = new Blog(resultSet.getString("Subject"),resultSet.getString("Description"), Integer.parseInt(resultSet.getString("usersID")), resultSet.getString("username"),Integer.parseInt(resultSet.getString("id")));
                 blogList.add(blog);
             }
         } catch (SQLException e) {
@@ -116,6 +119,32 @@ public class BlogPageController implements Initializable {
         });
 
     }
+    public boolean check2Blogs() {
+        //Check if the user has posted 2 blogs
+        //create connection
+        boolean check = false;
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectUser = connection.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        //Get number of blogs posted today
+        String getCheckBlogQuery = "SELECT count(*) FROM blog WHERE createdOn >= curdate() AND usersID = " + LoginPage.userID + ";";
+        try {
+            preparedStatement = connectUser.prepareStatement(getCheckBlogQuery);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                if(Integer.valueOf(resultSet.getString("count(*)")) >= 2){
+                    check = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+
     public void setAddedlistView(){
         //inset Blogs from database
         //create connection
@@ -125,13 +154,13 @@ public class BlogPageController implements Initializable {
         ResultSet resultSet;
 
         //Get blogs query and username
-        String getBlogQuery = "SELECT blog.Subject, blog.Description, blog.usersID, users.username FROM blog, users WHERE blog.usersID = "+LoginPage.userID+" HAVING max(blog.id);";
+        String getBlogQuery = "SELECT blog.Subject, blog.Description, blog.id , blog.usersID, users.username FROM blog, users WHERE blog.usersID = "+LoginPage.userID+" HAVING max(blog.id);";
 
         try{
             preparedStatement = connectUser.prepareStatement(getBlogQuery);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Blog blog = new Blog(resultSet.getString("Subject"),resultSet.getString("Description"), Integer.parseInt(resultSet.getString("usersID")), resultSet.getString("username"));
+                Blog blog = new Blog(resultSet.getString("Subject"),resultSet.getString("Description"), Integer.parseInt(resultSet.getString("usersID")), LoginPage.userName, Integer.parseInt(resultSet.getString("id")));
                 blogList.add(blog);
             }
         } catch (SQLException e) {

@@ -8,6 +8,7 @@ public class Blog {
     private String Description;
     private int usersID;
     private String userName;
+    private int blogID;
     private ArrayList<String> comments;
     private ArrayList<String> tags;
 
@@ -16,6 +17,13 @@ public class Blog {
         Description = "";
         usersID = 0;
         userName = "";
+    }
+    public Blog(String Subject,String Description,int usersID, String userName, int blogID){
+        this.Subject = Subject;
+        this.Description = Description;
+        this.usersID = usersID;
+        this.userName = userName;
+        this.blogID = blogID;
     }
     public Blog(String Subject,String Description,int usersID, String userName){
         this.Subject = Subject;
@@ -54,6 +62,14 @@ public class Blog {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getBlogID() {
+        return blogID;
+    }
+
+    public void setBlogID(int blogID) {
+        this.blogID = blogID;
     }
 
 }

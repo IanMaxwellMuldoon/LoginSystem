@@ -35,14 +35,6 @@ public class RegisterPageController {
     LoginPage login = new LoginPage();
 
 
-
-
-
-    //@FXML
-    /*protected void onHelloButtonClick() {
-
-    }*/
-
     public void handleRegister(ActionEvent actionEvent) {
 
         strRegUsername = RegUsername.getText();

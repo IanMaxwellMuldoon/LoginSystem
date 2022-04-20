@@ -135,7 +135,7 @@ VALUES('Frogs','I like frogs',2);
 INSERT INTO Blog(Subject, Description, usersID)
 VALUES('Bikes','I like bikes',3);
 INSERT INTO Blog(Subject, Description, usersID)
-VALUES('Games','I like games',4);
+VALUES('Games','I like games',3);
 INSERT INTO Blog(Subject, Description, usersID)
 VALUES('Exercise','I like exercise',5);
 
