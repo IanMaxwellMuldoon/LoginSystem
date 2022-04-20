@@ -81,7 +81,7 @@ public class ListCellItemData {
         String commentPostQuery = "INSERT INTO comments(usersID, Description, Sentiment, blogID) VALUES(?,?,?,?);";
 
         //Prepared Statement
-        try{
+       /* try{
             preparedStatement = connectUser.prepareStatement(commentPostQuery);
             preparedStatement.setString(1, Loginpage);
             preparedStatement.setString(2, BlogDescriptionTextArea.getText());
@@ -93,10 +93,11 @@ public class ListCellItemData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        setAddedlistView();
+        setAddedlistView(); */
 
     }
-    }
+
+
 
     public void handleListCellLikeButton(ActionEvent actionEvent) {
         likeordislike = true;

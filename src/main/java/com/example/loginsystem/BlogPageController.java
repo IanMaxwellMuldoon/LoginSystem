@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BlogPageController implements Initializable {
@@ -30,6 +31,8 @@ public class BlogPageController implements Initializable {
     TextField BlogSubjectTextField;
     @FXML
     ListView listView;
+    @FXML
+    TextField BlogTagTextField;
 
     ArrayList<Blog> blogList = new ArrayList<Blog>();
     ObservableList observableList = FXCollections.observableArrayList();
@@ -39,14 +42,18 @@ public class BlogPageController implements Initializable {
 
     public void handleBlogDoneButton(ActionEvent actionEvent) {
         System.out.println("Done Button");
+        System.out.println(Arrays.toString(splitTags(BlogTagTextField)));
 
         //create connection
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
+        PreparedStatement tagpreparedStatement;
 
         //Blog Post query
         String blogPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
+
+        String tagPostQuery = "INSERT INTO Tags(blogID, Title) VALUES(?, ?)";
 
         //Prepared Statement
         try {
@@ -63,6 +70,15 @@ public class BlogPageController implements Initializable {
                else {
                 preparedStatement.executeUpdate();
                 setAddedlistView();
+            }
+
+
+            tagpreparedStatement = connectUser.prepareStatement(tagPostQuery);
+            for(String s: splitTags(BlogTagTextField)) {
+                tagpreparedStatement.setString(1, String.valueOf(queryBlogId()));
+                tagpreparedStatement.setString( 2,s);
+                tagpreparedStatement.executeUpdate();
+
             }
 
 
@@ -153,5 +169,41 @@ public class BlogPageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDefaultlistView();
     }
+
+    public String [] splitTags (TextField BlogTagTextField ) {
+        String s = BlogTagTextField.getText();
+        String [] sArray = s.split(", ");
+
+        return sArray;
+
+    }
+
+    public int queryBlogId() {
+        //inset Blogs from database
+        //create connection
+        int i = 0;
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectUser = connection.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        //Get blogs query and username
+        String getBlogQuery = "SELECT count(*) FROM blog";
+
+        try{
+            preparedStatement = connectUser.prepareStatement(getBlogQuery);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+               i = Integer.valueOf(resultSet.getString("count(*)"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return i;
+
+    }
+
+
 }
 
