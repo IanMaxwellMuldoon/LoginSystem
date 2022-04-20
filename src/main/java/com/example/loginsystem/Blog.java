@@ -9,7 +9,7 @@ public class Blog {
     private int usersID;
     private String userName;
     private ArrayList<String> comments;
-    private String [] tags;
+    private ArrayList<String> tags;
 
     public Blog(){
         Subject = "";
@@ -54,10 +54,6 @@ public class Blog {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public void setTags (String [] tags) {
-
     }
 
 }
