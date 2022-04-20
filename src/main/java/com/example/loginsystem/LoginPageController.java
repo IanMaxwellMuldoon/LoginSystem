@@ -40,7 +40,7 @@ public class LoginPageController {
         DatabaseConnection connect = new DatabaseConnection();
 
         ScriptRunner runner = new ScriptRunner(connect.getConnection(), false, false);
-        String file = "C:\\Users\\ianmu\\OneDrive\\Documents\\GitHub\\LoginSystem\\CreateTables.sql";
+        String file = "C:\\Users\\colin\\Documents\\GitHub\\LoginSystem\\CreateTables.sql";
         try {
             runner.runScript(new BufferedReader(new FileReader(file)));
         } catch (IOException e) {
