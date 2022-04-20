@@ -32,7 +32,7 @@ public class ListCommentData
 
     public void setInfo(String string)
     {
-        String[] comment = string.split("/");
+        String[] comment = string.split("~");
         listCommentUsername.setText(comment[0]);
         listCommentTextArea.setText(comment[1]);
     }
