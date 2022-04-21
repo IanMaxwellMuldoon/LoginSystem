@@ -30,13 +30,15 @@ public class BlogPageController implements Initializable {
     TextField BlogSubjectTextField;
     @FXML
     ListView listView;
+    @FXML
+    TextField BlogTagTextField;
 
     ArrayList<Blog> blogList = new ArrayList<Blog>();
     ObservableList observableList = FXCollections.observableArrayList();
 
 
 
-// hello
+
     public void handleBlogDoneButton(ActionEvent actionEvent) {
 
         if(check2Blogs() == false) {
@@ -44,9 +46,11 @@ public class BlogPageController implements Initializable {
             DatabaseConnection connection = new DatabaseConnection();
             Connection connectUser = connection.getConnection();
             PreparedStatement preparedStatement;
+            PreparedStatement tagpreparedStatement;
 
             //Blog Post query
             String blogPostQuery = "INSERT INTO Blog(Subject, Description, usersID) VALUES(?,?,?)";
+            String tagPostQuery = "INSERT INTO Tags(blogID, Title) VALUES(?, ?)";
 
             //Prepared Statement
             try {
@@ -63,6 +67,14 @@ public class BlogPageController implements Initializable {
                 else {
                     preparedStatement.executeUpdate();
                     setAddedlistView();
+                }
+                tagpreparedStatement = connectUser.prepareStatement(tagPostQuery);
+                System.out.println("Test");
+                for(String s: splitTags(BlogTagTextField)) {
+                    tagpreparedStatement.setString(1, String.valueOf(queryBlogId()));
+                    tagpreparedStatement.setString( 2,s);
+                    tagpreparedStatement.executeUpdate();
+
                 }
 
 
@@ -98,6 +110,7 @@ public class BlogPageController implements Initializable {
 
         //Get blogs query and username
         String getBlogQuery = "SELECT blog.Subject, blog.Description, blog.usersID, users.username, blog.id FROM blog, users WHERE blog.usersID = users.id;";
+
 
         try{
             preparedStatement = connectUser.prepareStatement(getBlogQuery);
@@ -174,6 +187,38 @@ public class BlogPageController implements Initializable {
                 return new ListViewCell();
             }
         });
+
+    }
+    public int queryBlogId() {
+        //inset Blogs from database
+        //create connection
+        int i = 0;
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectUser = connection.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        //Get blogs query and username
+        String getBlogQuery = "SELECT count(*) FROM blog";
+
+        try{
+            preparedStatement = connectUser.prepareStatement(getBlogQuery);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                i = Integer.valueOf(resultSet.getString("count(*)"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return i;
+
+    }
+    public String [] splitTags (TextField BlogTagTextField ) {
+        String s = BlogTagTextField.getText();
+        String [] sArray = s.split(", ");
+
+        return sArray;
 
     }
 
