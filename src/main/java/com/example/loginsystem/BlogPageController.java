@@ -39,7 +39,7 @@ public class BlogPageController implements Initializable {
 
 
 
-
+// hello
     public void handleBlogDoneButton(ActionEvent actionEvent) {
         System.out.println("Done Button");
         System.out.println(Arrays.toString(splitTags(BlogTagTextField)));
