@@ -128,7 +128,7 @@ public class ListCellItemData {
             preparedStatement = connectUser.prepareStatement(getDefaultCommentQuery);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String comment = resultSet.getString("username") + "~" + resultSet.getString("Description");
+                String comment = resultSet.getString("username") + "/" + resultSet.getString("Description");
                 comments.add(comment);
             }
         } catch (SQLException e) {
