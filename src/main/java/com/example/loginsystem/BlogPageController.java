@@ -36,7 +36,7 @@ public class BlogPageController implements Initializable {
 
 
 
-
+// hello
     public void handleBlogDoneButton(ActionEvent actionEvent) {
 
         if(check2Blogs() == false) {
