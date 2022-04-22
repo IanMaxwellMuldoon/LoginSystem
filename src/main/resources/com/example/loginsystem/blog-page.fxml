@@ -77,14 +77,23 @@
          </children>
       </VBox>
    </top>
-   <bottom>
-      <Button fx:id="BlogGoBackButton" mnemonicParsing="false" onAction="#handleBlogGoBackButton" text="Go Back" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" top="5.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
    <center>
       <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <HBox prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="statusText" prefHeight="39.0" prefWidth="257.0">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="BlogGoBackButton" mnemonicParsing="false" onAction="#handleBlogGoBackButton" text="Go Back">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

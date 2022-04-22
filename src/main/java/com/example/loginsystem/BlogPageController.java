@@ -32,6 +32,8 @@ public class BlogPageController implements Initializable {
     ListView listView;
     @FXML
     TextField BlogTagTextField;
+    @FXML
+    Label statusText;
 
     ArrayList<Blog> blogList = new ArrayList<Blog>();
     ObservableList observableList = FXCollections.observableArrayList();
@@ -87,6 +89,10 @@ public class BlogPageController implements Initializable {
 
 
     }
+    public void setStatus(String s){
+        statusText.setText(s);
+    }
+
 
     public void handleBlogGoBackButton(ActionEvent actionEvent) throws IOException {
         loginPage.changeScene("login-page.fxml");

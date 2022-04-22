@@ -2,6 +2,7 @@ package com.example.loginsystem;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -16,6 +17,7 @@ public class ListCommentData
     @FXML
     private TextArea listCommentTextArea;
 
+
     public ListCommentData()
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/loginsystem/list-comment-cell.fxml"));
@@ -29,6 +31,8 @@ public class ListCommentData
             throw new RuntimeException(e);
         }
     }
+
+
 
     public void setInfo(String string)
     {

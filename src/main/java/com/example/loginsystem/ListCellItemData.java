@@ -37,8 +37,11 @@ public class ListCellItemData {
     public Button listCellLikeButton;
     @FXML
     public Button listCellDislikeButton;
+    @FXML
+    private Button followButton;
 
     public int blogID;
+    public int userID;
 
     public String enteredComment;
     public ArrayList<String> comments = new ArrayList<String>();
@@ -46,6 +49,10 @@ public class ListCellItemData {
     ObservableList observableList = FXCollections.observableArrayList();
 
     public Boolean likeordislike;
+
+    DatabaseConnection connection = new DatabaseConnection();
+    Connection connectUser = connection.getConnection();
+    BlogPageController blog = new BlogPageController();
 
     public ListCellItemData() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/loginsystem/list-cell-item.fxml"));
@@ -59,10 +66,38 @@ public class ListCellItemData {
 
     public void setInfo(Blog blog) {
         blogID = blog.getBlogID();
+        userID = blog.getUsersID();
         listCellSubject.setText(blog.getSubject());
         listCellUsername.setText("By: " + blog.getUserName());
         listCellDescriptionTextArea.setText(blog.getDescription());
         setDefaultCommentlistView();
+
+    }
+
+    public void handleFollowButton(ActionEvent actionEvent){
+        //check if self follow
+        if(userID == LoginPage.userID){
+            System.out.println("You can't follow yourself");
+        }
+        //create connection
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
+        PreparedStatement preparedStatement;
+
+        //Comment Post query
+        String followPostQuery = "INSERT INTO follow(FollowedUserid, FollowingUserid) VALUES(?,?);";
+
+        //Prepared Statement
+        try {
+            preparedStatement = connectUser.prepareStatement(followPostQuery);
+            preparedStatement.setString(1, String.valueOf(userID));
+            preparedStatement.setString(2, String.valueOf(LoginPage.userID));
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -81,8 +116,8 @@ public class ListCellItemData {
 
 
             //create connection
-            DatabaseConnection connection = new DatabaseConnection();
-            Connection connectUser = connection.getConnection();
+             connection = new DatabaseConnection();
+             connectUser = connection.getConnection();
             PreparedStatement preparedStatement;
 
             //Comment Post query
@@ -112,12 +147,13 @@ public class ListCellItemData {
 
     }
 
+
     public void setDefaultCommentlistView() {
 
         //insert Comment from database
         //create connection
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -141,8 +177,8 @@ public class ListCellItemData {
     public void setAddedCommentlistView() {
         //insert Comment from database
         //create connection
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -165,8 +201,8 @@ public class ListCellItemData {
 
     public boolean check1CommentEachBlog() {
         boolean check = false;
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -189,8 +225,8 @@ public class ListCellItemData {
 
     public boolean checkSelfComment() {
         boolean check = false;
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -213,8 +249,8 @@ public class ListCellItemData {
 
     public boolean check3Comment() {
         boolean check = false;
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectUser = connection.getConnection();
+        connection = new DatabaseConnection();
+        connectUser = connection.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
