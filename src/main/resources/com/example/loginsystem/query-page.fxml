@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginsystem.QueryPageController">
+    <top>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="647.0" text="Query">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <ComboBox fx:id="queryComboBox" onAction="#handleQueryComboBox" prefHeight="31.0" prefWidth="608.0" promptText="Select a query to execute">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="1. List the users who post at least two blogs, one has a tag of 'X', and another has a tag of 'Y'" />
+                            <String fx:value="2. List all the blogs of user 'X', such that all the comments are positive for these blogs" />
+                            <String fx:value="3. List the users who posted the most number of blogs on 5/1/2022; if there is a tie, list all the users who have a tie" />
+                            <String fx:value="4. List the users who are followed by both X and Y. Usernames X and Y are inputs from the user" />
+                            <String fx:value="5. List a user pair (A, B) such that they have at least one common hobby" />
+                            <String fx:value="6. Display all the users who never posted a blog" />
+                            <String fx:value="7. Display all the users who never posted a comment" />
+                            <String fx:value="8. Display all the users who posted some comments, but each of them is negative" />
+                            <String fx:value="9. Display those users such that all the blogs they posted so far never received any negative comments" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+            <TextArea fx:id="fullQueryText" editable="false" prefHeight="67.0" prefWidth="600.0" text="Query Statement">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font></TextArea>
+                <HBox prefHeight="54.0" prefWidth="600.0">
+                    <children>
+                        <Label prefHeight="54.0" prefWidth="37.0" text="X:">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                        <TextField prefHeight="54.0" prefWidth="228.0" promptText="Enter a value for X" fx:id="xTextField">
+                            <font>
+                                <Font size="19.0" />
+                            </font>
+                        </TextField>
+                        <Label prefHeight="54.0" prefWidth="36.0" text="Y:">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                        <TextField fx:id="yTextField" prefHeight="53.0" prefWidth="268.0" promptText="Enter a value for Y">
+                            <font>
+                                <Font size="19.0" />
+                            </font>
+                        </TextField>
+                    </children>
+                </HBox>
+                <Button fx:id="executeButton" onAction="#handleExecuteButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Execute">
+                    <VBox.margin>
+                        <Insets left="260.0" top="20.0" />
+                    </VBox.margin>
+                </Button>
+                <HBox prefHeight="89.0" prefWidth="600.0">
+                    <children>
+                        <Label prefHeight="101.0" prefWidth="64.0" text="Result:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="answerText" prefHeight="115.0" prefWidth="537.0" text="Answer">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#handleGoBackButton" prefHeight="33.0" prefWidth="99.0" text="Go Back" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="20.0" />
+            </BorderPane.margin>
+        </Button>
+    </bottom>
+</BorderPane>
