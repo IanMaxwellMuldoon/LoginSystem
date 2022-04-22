@@ -25,15 +25,15 @@
                 <ComboBox fx:id="queryComboBox" onAction="#handleQueryComboBox" prefHeight="31.0" prefWidth="608.0" promptText="Select a query to execute">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="List the users who post at least two blogs, one has a tag of 'X', and another has a tag of 'Y'" />
-                            <String fx:value="List all the blogs of user 'X', such that all the comments are positive for these blogs" />
-                            <String fx:value="List the users who posted the most number of blogs on 5/1/2022; if there is a tie, list all the users who have a tie" />
-                            <String fx:value="List the users who are followed by both X and Y. Usernames X and Y are inputs from the user" />
-                            <String fx:value="List a user pair (A, B) such that they have at least one common hobby" />
-                            <String fx:value="Display all the users who never posted a blog" />
-                            <String fx:value="Display all the users who never posted a comment" />
-                            <String fx:value="Display all the users who posted some comments, but each of them is negative" />
-                            <String fx:value="Display those users such that all the blogs they posted so far never received any negative comments" />
+                            <String fx:value="1. List the users who post at least two blogs, one has a tag of 'X', and another has a tag of 'Y'" />
+                            <String fx:value="2. List all the blogs of user 'X', such that all the comments are positive for these blogs" />
+                            <String fx:value="3. List the users who posted the most number of blogs on 5/1/2022; if there is a tie, list all the users who have a tie" />
+                            <String fx:value="4. List the users who are followed by both X and Y. Usernames X and Y are inputs from the user" />
+                            <String fx:value="5. List a user pair (A, B) such that they have at least one common hobby" />
+                            <String fx:value="6. Display all the users who never posted a blog" />
+                            <String fx:value="7. Display all the users who never posted a comment" />
+                            <String fx:value="8. Display all the users who posted some comments, but each of them is negative" />
+                            <String fx:value="9. Display those users such that all the blogs they posted so far never received any negative comments" />
                         </FXCollections>
                     </items>
                 </ComboBox>
@@ -80,7 +80,7 @@
                         </TextField>
                     </children>
                 </HBox>
-                <Button fx:id="executeButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Execute">
+                <Button fx:id="executeButton" onAction="#handleExecuteButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Execute">
                     <VBox.margin>
                         <Insets left="260.0" top="20.0" />
                     </VBox.margin>
