@@ -2,6 +2,7 @@ package com.example.loginsystem;
 
 import com.example.loginsystem.Database.DatabaseConnection;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -29,6 +30,7 @@ public class RegisterPageController {
     public ToggleButton bowlingButton;
     public ToggleButton movieButton;
     public ToggleButton cookingButton;
+
 
 
     private String strRegUsername;
@@ -67,6 +69,7 @@ public class RegisterPageController {
 
         connection = new DatabaseConnection();
         connectUser = connection.getConnection();
+
 
         //retype password
         if (!strRegPassword.equals(strRePassword)) {

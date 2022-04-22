@@ -20,10 +20,11 @@ public class LoginPageController {
     @FXML
     Button RegisterButton;
     @FXML
+    Button queryDatabaseButton;
+    @FXML
     TextField UsernameTextField;
     @FXML
     TextField PassTextField;
-
     @FXML
     Label logStatus;
 
@@ -105,4 +106,7 @@ public class LoginPageController {
         }
     }
 
+    public void handleQueryDatabase(ActionEvent actionEvent) throws IOException {
+        login.changeScene("query-page.fxml");
+    }
 }
