@@ -27,7 +27,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="followButton" onAction="#handleFollowButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="68.0" text="Follow">
+            <Button fx:id="followButton" mnemonicParsing="false" onAction="#handleFollowButton" prefHeight="31.0" prefWidth="68.0" text="Follow">
                <HBox.margin>
                   <Insets left="15.0" top="15.0" />
                </HBox.margin>
@@ -74,6 +74,14 @@
                   </Button>
                </children>
             </HBox>
+            <Label fx:id="BlogError" prefHeight="38.0" prefWidth="601.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
    </bottom>

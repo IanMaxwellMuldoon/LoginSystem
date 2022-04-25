@@ -39,6 +39,8 @@ public class ListCellItemData {
     public Button listCellDislikeButton;
     @FXML
     private Button followButton;
+    @FXML
+    private Label BlogError;
 
     public int blogID;
     public int userID;
@@ -77,7 +79,7 @@ public class ListCellItemData {
     public void handleFollowButton(ActionEvent actionEvent){
         //check if self follow
         if(userID == LoginPage.userID){
-            System.out.println("You can't follow yourself");
+            BlogError.setText("You can't follow yourself");
         }
         //create connection
         connection = new DatabaseConnection();
@@ -105,13 +107,13 @@ public class ListCellItemData {
     public void handleListCellSendButton(ActionEvent actionEvent) {
 
         if (likeordislike == null)
-            System.out.println("You must select like or dislike");
+            BlogError.setText("You must select like or dislike");
         else if (check3Comment())
-            System.out.println("You have already posted 3 comments today");
+            BlogError.setText("You have already posted 3 comments today");
         else if (check1CommentEachBlog())
-            System.out.println("You may only post 1 comment on each blog");
+            BlogError.setText("You may only post 1 comment on each blog");
         else if (checkSelfComment())
-            System.out.println("You may not comment on your own blog");
+            BlogError.setText("You may not comment on your own blog");
         else {
 
 
