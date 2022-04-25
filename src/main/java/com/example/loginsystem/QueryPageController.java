@@ -33,6 +33,8 @@ public class QueryPageController {
     public Button goBackButton;
     @FXML
     ComboBox<String> queryComboBox;
+    @FXML
+    Label errorStatus;
 
     String queryNumber;
 
@@ -64,7 +66,7 @@ public class QueryPageController {
         String X = xTextField.getText();
         String Y = yTextField.getText();
         if (X.equals("") || Y.equals("")) {
-            System.out.println("You must enter in values for X and Y");
+            errorStatus.setText("Error: You must enter in values for X and Y");
         } else {
 
             preparedStatement = queryPreparedStatement("SELECT users.username, blog.id FROM users, blog WHERE blog.usersID = users.id AND blog.id IN (SELECT blogID FROM tags WHERE Title = ?)");
@@ -100,7 +102,7 @@ public class QueryPageController {
         String result = "";
         String X = xTextField.getText();
         if(X.equals("")){
-            System.out.println("Enter the username for X");
+            errorStatus.setText("Error: Enter the username for X");
         }else {
             String id = "";
             preparedStatement = queryPreparedStatement("SELECT id FROM users WHERE username = ?");
@@ -145,7 +147,7 @@ public class QueryPageController {
         ArrayList<String> result = new ArrayList<>();
 
         if (X.equals("") || Y.equals("")) {
-            System.out.println("Please enter a username for X and Y");
+            errorStatus.setText("Error: Please enter a username for X and Y");
         } else {
             preparedStatement = queryPreparedStatement("Select username From users Where id IN (select FollowedUserid From follow Where FollowingUserid = (Select id FROM users WHERE username = ?) AND id IN (select FollowedUserid From follow Where FollowingUserid = (Select id FROM users WHERE username = ?)));");
             preparedStatement.setString(1, X);
