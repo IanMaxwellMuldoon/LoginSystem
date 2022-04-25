@@ -128,7 +128,7 @@ public class QueryPageController {
         ResultSet resultSet;
         ArrayList<String> result = new ArrayList<>();
 
-        preparedStatement = queryPreparedStatement("WITH CTE_BlogCount AS ( SELECT usersID, count(usersID) AS blogPosts FROM blog WHERE createdON BETWEEN '2022-04-22 00:00:00' AND '2022-04-22 23:59:59' group by usersID order by blogPosts DESC ) , CTE_MaxBlogs AS  ( SELECT MAX(BlogPosts) AS MAX FROM CTE_BlogCount ) SELECT U.Username, Bc.BlogPosts FROM CTE_BlogCount BC , CTE_MaxBlogs MB , Users U WHERE BC.BlogPosts = MB.MAX AND U.ID = BC.Usersid;");
+        preparedStatement = queryPreparedStatement("WITH CTE_BlogCount AS ( SELECT usersID, count(usersID) AS blogPosts FROM blog WHERE createdON BETWEEN '2022-04-25 00:00:00' AND '2022-04-25 23:59:59' group by usersID order by blogPosts DESC ) , CTE_MaxBlogs AS  ( SELECT MAX(BlogPosts) AS MAX FROM CTE_BlogCount ) SELECT U.Username, Bc.BlogPosts FROM CTE_BlogCount BC , CTE_MaxBlogs MB , Users U WHERE BC.BlogPosts = MB.MAX AND U.ID = BC.Usersid;");
         resultSet = preparedStatement.executeQuery();
         while(resultSet.next()) {
             String user = resultSet.getString("username");
