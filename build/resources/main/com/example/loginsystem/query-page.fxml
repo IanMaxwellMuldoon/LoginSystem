@@ -80,7 +80,7 @@
                         </TextField>
                     </children>
                 </HBox>
-                <Button fx:id="executeButton" onAction="#handleExecuteButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Execute">
+                <Button fx:id="executeButton" mnemonicParsing="false" onAction="#handleExecuteButton" prefHeight="35.0" prefWidth="72.0" text="Execute">
                     <VBox.margin>
                         <Insets left="260.0" top="20.0" />
                     </VBox.margin>
@@ -91,6 +91,9 @@
                             <font>
                                 <Font size="18.0" />
                             </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                         </Label>
                         <Label fx:id="answerText" prefHeight="115.0" prefWidth="537.0" text="Answer">
                             <font>
@@ -99,6 +102,14 @@
                         </Label>
                     </children>
                 </HBox>
+            <Label fx:id="errorStatus" prefHeight="64.0" prefWidth="601.0" text="Status">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
             </children>
         </VBox>
     </center>
